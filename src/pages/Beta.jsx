@@ -27,7 +27,7 @@ export default function Beta() {
           <span className="text-green">Help Us Calibrate.</span>
         </h1>
         <p className="text-muted text-lg max-w-2xl mx-auto">
-          This is not a public launch. This is a laboratory. We need 15 serious anglers on Tennessee water bodies to validate the BiteScore engine.
+          This is not a public launch. This is a laboratory. We need 15 serious anglers on Tennessee water bodies to validate the BiteScore™ engine.
         </p>
       </section>
 
@@ -41,7 +41,7 @@ export default function Beta() {
               {[
                 { icon: '👑', label: 'Founding Member Pro+', desc: 'Free for life. No payment ever.' },
                 { icon: '📍', label: 'TWRA Attractor Layer', desc: 'First access to structured access data for every TN water body.' },
-                { icon: '🔒', label: 'Spot-Lock from Day One', desc: 'GPS privacy architecture active from your first session.' },
+                { icon: '🔒', label: 'Spot-Lock™ from Day One', desc: 'GPS privacy architecture active from your first session.' },
                 { icon: '📞', label: 'Direct Line to Founder', desc: 'Text, email, or voice. You talk to the person who built it.' },
               ].map((p, i) => (
                 <div key={i} className="flex gap-4 items-start">
@@ -61,7 +61,7 @@ export default function Beta() {
             <div className="space-y-4">
               {[
                 { icon: '🌊', label: 'Anglers on TN Water', desc: 'Percy Priest, Old Hickory, Center Hill, Harpeth, Caney Fork.' },
-                { icon: '✅', label: 'Honest Score Feedback', desc: 'Did the BiteScore match reality? Spot On, Close, or Off.' },
+                { icon: '✅', label: 'Honest Score Feedback', desc: 'Did the BiteScore™ match reality? Spot On, Close, or Off.' },
                 { icon: '📱', label: '3-Tap Catch Logging', desc: 'Species, score match, submit. Under 10 seconds per catch.' },
               ].map((p, i) => (
                 <div key={i} className="flex gap-4 items-start">
@@ -81,7 +81,7 @@ export default function Beta() {
       <section className="py-20 px-6 bg-navy">
         <div className="max-w-md mx-auto">
           <h2 className="text-2xl font-bold text-center mb-2">Apply for Beta Access</h2>
-          <p className="text-muted text-sm text-center mb-8">The BiteScore engine is live. Some features are still being built. Your job is to tell us if the score feels right on the water.</p>
+          <p className="text-muted text-sm text-center mb-8">The BiteScore™ engine is live. Some features are still being built. Your job is to tell us if the score feels right on the water.</p>
 
           {submitted ? (
             <div className="bg-green/10 border border-green/30 rounded-xl p-8 text-center">

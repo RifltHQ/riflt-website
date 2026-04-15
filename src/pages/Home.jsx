@@ -26,15 +26,16 @@ export default function Home() {
         </p>
 
         {/* Live score preview */}
-        <div className="flex gap-6 mb-10">
-          <ScoreGauge score={72} label="Percy Priest" color="#1D9E75" />
-          <ScoreGauge score={58} label="Harpeth River" color="#BA7517" />
-          <ScoreGauge score={31} label="Center Hill" color="#E24B4A" />
+        <div className="flex gap-6 mb-4">
+          <ScoreGauge score="--" label="Percy Priest" color="#1D9E75" />
+          <ScoreGauge score="--" label="Harpeth River" color="#BA7517" />
+          <ScoreGauge score="--" label="Center Hill" color="#2E75B6" />
         </div>
+        <p className="text-muted/60 text-xs mb-10">Live scores update every time you open the app</p>
 
         <a href="https://riflt-mvp.vercel.app" target="_blank" rel="noopener noreferrer"
           className="bg-green hover:bg-green/90 text-white text-lg font-bold px-8 py-4 rounded-xl no-underline transition-all shadow-lg shadow-green/20">
-          Get Your BiteScore &rarr;
+          Get Your BiteScore™ &rarr;
         </a>
       </section>
 
@@ -45,7 +46,7 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               { icon: '🌡️', title: 'Phase Intelligence', desc: 'Direction-aware thermal classifier. Same temperature, opposite biological states. We know the difference.' },
-              { icon: '🔒', title: 'Private Vault', desc: 'GPS blurred to 1–2 mile radius. Your spots never leave your device. Spot-Lock is not optional.' },
+              { icon: '🔒', title: 'Private Vault', desc: 'GPS blurred to 1–2 mile radius. Your spots never leave your device. Spot-Lock™ is not optional.' },
               { icon: '📍', title: 'Local Edge', desc: 'USGS streamflow, TWRA access data, and 19 calibrated Tennessee water bodies. Built for where you actually fish.' },
             ].map((p, i) => (
               <div key={i} className="bg-navy-light/50 border border-border rounded-2xl p-8 text-center">
@@ -58,8 +59,32 @@ export default function Home() {
         </div>
       </section>
 
-      {/* The Problem */}
+      {/* Key Benefits */}
       <section className="py-24 px-6">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">What You Get</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-navy-dark border border-border rounded-2xl p-8">
+              <p className="text-3xl mb-4">📅</p>
+              <h3 className="text-lg font-bold mb-3">Best Days This Week</h3>
+              <p className="text-muted text-sm leading-relaxed">A 5-day planning strip. Favorable, Mixed, or Tough. Know which mornings are worth blocking on your calendar.</p>
+            </div>
+            <div className="bg-navy-dark border border-border rounded-2xl p-8">
+              <p className="text-3xl mb-4">🎣</p>
+              <h3 className="text-lg font-bold mb-3">Top 3 Baits by Structure</h3>
+              <p className="text-muted text-sm leading-relaxed">Wood, Rock, Weeds, Open Water. The right lure for the right cover, driven by the algorithm.</p>
+            </div>
+            <div className="bg-navy-dark border border-border rounded-2xl p-8">
+              <p className="text-3xl mb-4">📱</p>
+              <h3 className="text-lg font-bold mb-3">Catch Log</h3>
+              <p className="text-muted text-sm leading-relaxed">3 taps, under 10 seconds. Log your catch and help calibrate the algorithm for your home water.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* The Problem */}
+      <section className="py-24 px-6 bg-navy">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-4">The Problem</p>
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Every fishing app uses a calendar.<br />Fish don't read calendars.</h2>

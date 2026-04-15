@@ -1,7 +1,7 @@
 const FEATURES = [
   {
     icon: '📊',
-    title: 'BiteScore Gauge',
+    title: 'BiteScore™ Gauge',
     desc: '0–100 score generated instantly on app open. Combines barometric velocity, thermal trend, and lunar phase — weighted by water body type. No input required beyond species selection.',
   },
   {
@@ -16,7 +16,7 @@ const FEATURES = [
   },
   {
     icon: '🔒',
-    title: 'Spot-Lock Privacy',
+    title: 'Spot-Lock™ Privacy',
     desc: 'GPS blurred to 1–2 mile radius before any data leaves your device. Your exact coordinates are never stored in any public table or shared card. Your spots stay yours.',
   },
   {

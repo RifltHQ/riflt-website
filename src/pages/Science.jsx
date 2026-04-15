@@ -4,7 +4,7 @@ export default function Science() {
       {/* Hero */}
       <section className="py-24 px-6 text-center">
         <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-4">How It Works</p>
-        <h1 className="text-4xl md:text-6xl font-black mb-6">The Science Behind<br /><span className="text-green">the BiteScore</span></h1>
+        <h1 className="text-4xl md:text-6xl font-black mb-6">The Science Behind<br /><span className="text-green">the BiteScore™</span></h1>
         <p className="text-muted text-lg max-w-2xl mx-auto">Four data streams. One number. Updated every time you open the app.</p>
       </section>
 

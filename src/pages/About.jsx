@@ -19,7 +19,7 @@ export default function About() {
             </p>
 
             <p>
-              I built RIFLT for the <strong className="text-white">10-percenters</strong> &mdash; the anglers who catch 90% of the fish because they pay attention to the details. We don't care about likes or followers. We care about the 2-degree temperature shift, the barometric drop, and the hidden brush pile.
+              I didn't build RIFLT to be a &ldquo;pro-only&rdquo; club. I built it for anyone who loves to fish &mdash; or anyone who is tired of the frustration and wants to learn. Whether you're a seasoned tournament pro or someone picking up a rod for the first time, RIFLT gives you the <strong className="text-white">2-degree advantage</strong>. The barometric drop, the thermal shift, the hidden brush pile &mdash; the details that separate a great day from a blank.
             </p>
 
             <p className="text-white font-semibold text-xl">
