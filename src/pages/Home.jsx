@@ -21,8 +21,11 @@ export default function Home() {
           Stop Guessing.<br />
           <span className="text-green">Start Catching.</span>
         </h1>
-        <p className="text-muted text-lg md:text-xl max-w-2xl mb-8 leading-relaxed">
+        <p className="text-muted text-lg md:text-xl max-w-2xl mb-4 leading-relaxed">
           The first fishing intelligence platform built on thermal physics, not calendar guesses.
+        </p>
+        <p className="text-muted/80 text-base max-w-xl mb-8 leading-relaxed italic">
+          That feeling when the line drops and goes tight &mdash; you should feel it more often. RIFLT&trade; tells you when the conditions are right before you make the drive.
         </p>
 
         {/* Live score preview */}
@@ -42,7 +45,7 @@ export default function Home() {
       {/* Three Pillars */}
       <section className="py-24 px-6 bg-navy">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">Three layers. One decision.</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-16">Three layers. One decision.</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {[
               { icon: '🌡️', title: 'Phase Intelligence', desc: 'Direction-aware thermal classifier. Same temperature, opposite biological states. We know the difference.' },
@@ -62,7 +65,7 @@ export default function Home() {
       {/* Key Benefits */}
       <section className="py-24 px-6">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">What You Get</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-16">What You Get</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-navy-dark border border-border rounded-2xl p-8">
               <p className="text-3xl mb-4">📅</p>
@@ -87,7 +90,7 @@ export default function Home() {
       <section className="py-24 px-6 bg-navy">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-4">The Problem</p>
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Every fishing app uses a calendar.<br />Fish don't read calendars.</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mb-6">Every fishing app uses a calendar.<br />Fish don't read calendars.</h2>
           <p className="text-muted text-lg leading-relaxed mb-8">
             Traditional fishing apps tell you it's &ldquo;Post-Spawn&rdquo; because it's May. But the water hasn't caught up with the air yet. The fish are still staging in 4&ndash;12 feet on transitions. The calendar says one thing. The thermometer says another. RIFLT reads the thermometer.
           </p>
@@ -102,7 +105,7 @@ export default function Home() {
       <section className="py-24 px-6 bg-navy">
         <div className="max-w-4xl mx-auto">
           <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-4 text-center">Field Validation</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">April 12, 2026. Percy Priest Reservoir.</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">April 12, 2026. Percy Priest Reservoir.</h2>
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
               <div className="bg-navy-dark border border-border rounded-xl p-6 space-y-4">
@@ -126,7 +129,7 @@ export default function Home() {
 
       {/* CTA */}
       <section className="py-24 px-6 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to fish smarter?</h2>
+        <h2 className="text-2xl md:text-3xl font-bold mb-6">Ready to fish smarter?</h2>
         <Link to="/beta" className="inline-block bg-green hover:bg-green/90 text-white text-lg font-bold px-8 py-4 rounded-xl no-underline transition-all">
           Join the Beta &rarr;
         </Link>

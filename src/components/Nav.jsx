@@ -16,7 +16,7 @@ export default function Nav() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-navy-dark/90 backdrop-blur-md border-b border-border">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link to="/" className="text-2xl font-black tracking-[4px] text-green no-underline">RIFLT</Link>
+        <Link to="/" className="text-3xl font-black tracking-[4px] text-green no-underline">RIFLT™</Link>
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">

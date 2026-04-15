@@ -4,51 +4,52 @@ export default function Science() {
       {/* Hero */}
       <section className="py-24 px-6 text-center">
         <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-4">How It Works</p>
-        <h1 className="text-4xl md:text-6xl font-black mb-6">The Science Behind<br /><span className="text-green">the BiteScore™</span></h1>
+        <h1 className="text-3xl md:text-5xl font-black mb-6">The Science Behind<br /><span className="text-green">the BiteScore&trade;</span></h1>
         <p className="text-muted text-lg max-w-2xl mx-auto">Four data streams. One number. Updated every time you open the app.</p>
       </section>
 
-      {/* Four Pillars */}
+      {/* Four Signals */}
       <section className="py-16 px-6">
-        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
-          {[
-            { label: 'Thermal Trend', value: 'T_score', color: '#2E75B6', desc: 'Water temperature vs species ideal. Not just the number — the direction. Rising 62°F and falling 62°F produce completely different fish behavior.' },
-            { label: 'Barometric Velocity', value: 'P_score', color: '#1D9E75', desc: 'Rate and direction of pressure change over 3 hours. A 0.03 inHg drop triggers pre-storm feeding. A rapid rise shuts fish down in shallow water.' },
-            { label: 'Solunar Proximity', value: 'L_score', color: '#D4A017', desc: 'Lunar phase mapped to feeding intensity. New moon and full moon peaks. Quarter moons = reduced activity. Cosine curve, not a calendar lookup.' },
-            { label: 'USGS Streamflow', value: 'Flow', color: '#3D8FD4', desc: 'Real-time gauge height and discharge for rivers. Flood stage = −10 score. Low clear water = +3. Data direct from USGS, updated every 15 minutes.' },
-          ].map((p, i) => (
-            <div key={i} className="bg-navy/60 border border-border rounded-2xl p-8">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: p.color }} />
-                <p className="text-xs font-semibold tracking-widest uppercase text-muted">{p.value}</p>
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">These are the signals we read</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            {[
+              { label: 'Thermal Direction', color: '#2E75B6', desc: 'Water temperature relative to the species\u2019 ideal feeding range \u2014 and whether it\u2019s rising or falling. The same temperature in April and October means completely different things to the fish.' },
+              { label: 'Barometric Velocity', color: '#1D9E75', desc: 'How fast is pressure changing, and which direction? A dropping barometer triggers aggressive pre-storm feeding. A rapid rise after a front shuts fish down, especially in shallow water.' },
+              { label: 'Solunar Proximity', color: '#D4A017', desc: 'Moon phase mapped to feeding intensity. New moon and full moon windows produce peak activity. Quarter moons reduce it. The relationship is predictable and measurable.' },
+              { label: 'USGS Streamflow', color: '#3D8FD4', desc: 'Real-time gauge height and water flow for rivers. High muddy water pushes fish to edges. Low clear water concentrates them on structure. Data direct from federal gauges, updated continuously.' },
+            ].map((p, i) => (
+              <div key={i} className="bg-navy/60 border border-border rounded-2xl p-8">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: p.color }} />
+                  <p className="text-xs font-semibold tracking-widest uppercase text-muted">Signal {i + 1}</p>
+                </div>
+                <h3 className="text-xl font-bold mb-3">{p.label}</h3>
+                <p className="text-muted text-sm leading-relaxed">{p.desc}</p>
               </div>
-              <h3 className="text-xl font-bold mb-3">{p.label}</h3>
-              <p className="text-muted text-sm leading-relaxed">{p.desc}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* The Formula */}
+      {/* How it comes together */}
       <section className="py-20 px-6 bg-navy">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-8">The Core Formula</h2>
-          <div className="bg-navy-dark border border-border rounded-xl p-8 inline-block">
-            <p className="font-mono text-xl md:text-2xl text-white">
-              BS = (<span className="text-accent">Cw</span> &times; P) + (<span className="text-accent">Tw</span> &times; T) + (<span className="text-accent">Lw</span> &times; L)
-            </p>
-          </div>
-          <p className="text-muted text-sm mt-6 max-w-xl mx-auto">
-            Cw, Tw, and Lw are the Variable Water-Body Coefficients &mdash; the patent. A pond (Cw 0.75) weights pressure heavily because shallow water reacts fast. A reservoir (Cw 0.38) weights temperature more because thermal mass dominates.
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-2xl md:text-3xl font-bold mb-8">How It Comes Together</h2>
+          <p className="text-muted text-lg leading-relaxed mb-6">
+            RIFLT&trade; reads all four signals simultaneously and weights them based on the type of water you're fishing. A shallow pond reacts to pressure changes fast. A deep reservoir holds temperature longer. A river's flow rate changes everything.
           </p>
-          <p className="text-muted/60 text-xs mt-4">Patent Pending RIFLT-PPA-001</p>
+          <p className="text-muted text-lg leading-relaxed">
+            The BiteScore&trade; accounts for these differences automatically. You pick the species. RIFLT&trade; does the rest.
+          </p>
+          <p className="text-muted/60 text-xs mt-8">Patent Pending RIFLT-PPA-001</p>
         </div>
       </section>
 
       {/* The 66 Degree Example */}
       <section className="py-24 px-6">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">The 66&deg;F Problem</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">The 66&deg;F Problem</h2>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-navy/60 border border-green/30 rounded-2xl p-8">
               <p className="text-green text-xs font-semibold tracking-widest uppercase mb-3">April &mdash; Rising</p>
@@ -71,34 +72,12 @@ export default function Science() {
         </div>
       </section>
 
-      {/* Score Breakdown Visual */}
-      <section className="py-20 px-6 bg-navy">
-        <div className="max-w-md mx-auto">
-          <h2 className="text-2xl font-bold text-center mb-8">Sample Score Breakdown</h2>
-          <div className="bg-navy-dark border border-border rounded-xl p-6 space-y-3">
-            <div className="text-center mb-4">
-              <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-[#BA7517]">
-                <span className="text-3xl font-black">69</span>
-              </div>
-              <p className="text-sm text-[#BA7517] font-semibold mt-2">Bite is Fair</p>
-            </div>
-            {[
-              { label: 'Pressure (P)', score: 65, weight: 'Cw 0.38', contrib: '24.7', color: '#2E75B6' },
-              { label: 'Temperature (T)', score: 82, weight: 'Tw 0.52', contrib: '42.6', color: '#1D9E75' },
-              { label: 'Lunar (L)', score: 16, weight: 'Lw 0.10', contrib: '1.6', color: '#D4A017' },
-            ].map((r, i) => (
-              <div key={i} className="flex items-center justify-between text-sm">
-                <span className="text-muted w-32">{r.label}</span>
-                <span className="font-mono font-bold w-8 text-right">{r.score}</span>
-                <span className="text-muted/60 text-xs w-16 text-center">&times; {r.weight}</span>
-                <span className="text-muted w-12 text-right">= {r.contrib}</span>
-              </div>
-            ))}
-            <div className="border-t border-border pt-3 mt-3">
-              <p className="text-muted/60 text-xs">Percy Priest Reservoir &middot; Spawn &middot; Seasonal Estimate &minus;12&deg;F</p>
-            </div>
-          </div>
-        </div>
+      {/* CTA */}
+      <section className="py-20 px-6 text-center">
+        <a href="https://riflt-mvp.vercel.app" target="_blank" rel="noopener noreferrer"
+          className="inline-block bg-green hover:bg-green/90 text-white text-lg font-bold px-8 py-4 rounded-xl no-underline transition-all">
+          See Your BiteScore&trade; &rarr;
+        </a>
       </section>
     </div>
   );
