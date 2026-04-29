@@ -92,11 +92,11 @@ export default function Home() {
           <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-4">The Problem</p>
           <h2 className="text-2xl md:text-3xl font-bold mb-6">Every fishing app uses a calendar.<br />Fish don't read calendars.</h2>
           <p className="text-muted text-lg leading-relaxed mb-8">
-            Traditional fishing apps tell you it's &ldquo;Post-Spawn&rdquo; because it's May. But the water hasn't caught up with the air yet. The fish are still staging in 4&ndash;12 feet on transitions. The calendar says one thing. The thermometer says another. RIFLT reads the thermometer.
+            Traditional fishing apps tell you it's &ldquo;Post-Spawn&rdquo; because it's May. But the water hasn't caught up with the air yet. The fish are still staging in 4&ndash;12 feet on transitions. The calendar says one thing. The thermometer says another. RIFLT&trade; reads the thermometer.
           </p>
           <div className="bg-navy-light/30 border border-border rounded-xl p-6 inline-block">
             <p className="text-amber font-mono text-sm">Calendar App: "Post-Spawn &mdash; fish shallow flats"</p>
-            <p className="text-green font-mono text-sm mt-2">RIFLT: "Pre-Spawn &mdash; 62&deg;F water, fish staging on transitions at 4&ndash;12ft"</p>
+            <p className="text-green font-mono text-sm mt-2">RIFLT&trade;: "Pre-Spawn &mdash; 62&deg;F water, fish staging on transitions at 4&ndash;12ft"</p>
           </div>
         </div>
       </section>
@@ -114,7 +114,7 @@ export default function Home() {
                 <div className="flex justify-between text-sm"><span className="text-muted">Pressure</span><span className="font-mono">30.24 inHg (stable)</span></div>
                 <div className="flex justify-between text-sm"><span className="text-muted">Bank anglers</span><span className="font-mono">30+</span></div>
                 <div className="flex justify-between text-sm"><span className="text-muted">Catch rate</span><span className="font-mono text-red">Near zero</span></div>
-                <div className="flex justify-between text-sm"><span className="text-muted">RIFLT prediction</span><span className="font-mono text-green">Bite is Slow</span></div>
+                <div className="flex justify-between text-sm"><span className="text-muted">RIFLT&trade; prediction</span><span className="font-mono text-green">Bite is Slow</span></div>
               </div>
             </div>
             <div className="text-center md:text-left">

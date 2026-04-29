@@ -109,7 +109,7 @@ export default function Beta() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm text-muted mb-1">How did you hear about RIFLT?</label>
+                <label className="block text-sm text-muted mb-1">How did you hear about RIFLT&trade;?</label>
                 <input type="text" value={source} onChange={e => setSource(e.target.value)}
                   className="w-full bg-navy-dark border border-border rounded-lg px-4 py-3 text-white focus:border-accent focus:outline-none" />
               </div>
