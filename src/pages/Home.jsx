@@ -1,6 +1,14 @@
 import { Link } from 'react-router-dom';
 
-function ScoreGauge({ score, label, status, color }) {
+function getScoreStatus(score) {
+  if (score >= 80) return { label: 'ON', color: '#1D9E75' };
+  if (score >= 60) return { label: 'Bite is Fair', color: '#BA7517' };
+  if (score >= 40) return { label: 'Bite is Slow', color: '#2E75B6' };
+  return { label: 'Tough Day', color: '#E24B4A' };
+}
+
+function ScoreGauge({ score, label }) {
+  const { label: status, color } = getScoreStatus(score);
   return (
     <div className="flex flex-col items-center">
       <div className="w-20 h-20 rounded-full flex flex-col items-center justify-center text-white" style={{ backgroundColor: color }}>
@@ -31,9 +39,9 @@ export default function Home() {
 
         {/* Illustrative score preview */}
         <div className="flex gap-6 mb-4">
-          <ScoreGauge score={72} label="Percy Priest" status="Bite is Fair" color="#BA7517" />
-          <ScoreGauge score={58} label="Harpeth River" status="Bite is Slow" color="#E24B4A" />
-          <ScoreGauge score={84} label="Center Hill" status="ON" color="#1D9E75" />
+          <ScoreGauge score={72} label="Percy Priest" />
+          <ScoreGauge score={58} label="Harpeth River" />
+          <ScoreGauge score={84} label="Center Hill" />
         </div>
         <p className="text-muted/60 text-xs mb-10">Example scores &mdash; open the app for your live BiteScore&trade;</p>
 
