@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 
-function ScoreGauge({ score, label, color }) {
+function ScoreGauge({ score, label, status, color }) {
   return (
     <div className="flex flex-col items-center">
-      <div className="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-black text-white" style={{ backgroundColor: color }}>
-        {score}
+      <div className="w-20 h-20 rounded-full flex flex-col items-center justify-center text-white" style={{ backgroundColor: color }}>
+        <span className="text-2xl font-black leading-none">{score}</span>
+        <span className="text-[9px] font-semibold tracking-wide mt-0.5 px-1 text-center leading-tight">{status}</span>
       </div>
       <p className="text-muted text-xs mt-2">{label}</p>
     </div>
@@ -28,13 +29,13 @@ export default function Home() {
           That feeling when the line drops and goes tight &mdash; you should feel it more often. RIFLT&trade; tells you when the conditions are right before you make the drive.
         </p>
 
-        {/* Live score preview */}
+        {/* Illustrative score preview */}
         <div className="flex gap-6 mb-4">
-          <ScoreGauge score="--" label="Percy Priest" color="#1D9E75" />
-          <ScoreGauge score="--" label="Harpeth River" color="#BA7517" />
-          <ScoreGauge score="--" label="Center Hill" color="#2E75B6" />
+          <ScoreGauge score={72} label="Percy Priest" status="Bite is Fair" color="#BA7517" />
+          <ScoreGauge score={58} label="Harpeth River" status="Bite is Slow" color="#E24B4A" />
+          <ScoreGauge score={84} label="Center Hill" status="ON" color="#1D9E75" />
         </div>
-        <p className="text-muted/60 text-xs mb-10">Live scores update every time you open the app</p>
+        <p className="text-muted/60 text-xs mb-10">Example scores &mdash; open the app for your live BiteScore&trade;</p>
 
         <a href="https://riflt-mvp.vercel.app" target="_blank" rel="noopener noreferrer"
           className="bg-green hover:bg-green/90 text-white text-lg font-bold px-8 py-4 rounded-xl no-underline transition-all shadow-lg shadow-green/20">
