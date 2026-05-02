@@ -23,6 +23,18 @@ export default function About() {
             </p>
 
             <p>
+              Three weeks later I went back. Same lake, different season. The app said <strong className="text-white">Bite is Fair</strong> &mdash; conditions mixed, low activity. I fished for an hour with five different rigs. Zero bites. About twenty other bank anglers were there. A boat worked the shoreline a hundred feet out. Nobody caught anything.
+            </p>
+
+            <p>
+              Standing there with a thermometer in one hand and a Ned rig I had to Google how to tie, I realized something: the app was right again. But it needed to do more than tell me the score. It needed to tell me what to do with it. That's when the <strong className="text-white">Contextual Intelligence</strong> features were born &mdash; rig explainers, conditions context, plain-language guidance for anglers who, like me, are still learning while they fish.
+            </p>
+
+            <p>
+              Two field tests. Two seasons. Same lake. Same result. That's not luck. That's what happens when the physics are correct.
+            </p>
+
+            <p>
               I didn't build RIFLT&trade; to be a &ldquo;pro-only&rdquo; club. I built it for anyone who loves to fish &mdash; or anyone who is tired of the frustration and wants to learn. Whether you're a seasoned tournament pro or someone picking up a rod for the first time, RIFLT&trade; gives you the <strong className="text-white">2-degree advantage</strong>. The barometric drop, the thermal shift, the hidden brush pile &mdash; the details that separate a great day from a blank.
             </p>
 
