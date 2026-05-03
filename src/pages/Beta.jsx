@@ -26,6 +26,9 @@ export default function Beta() {
           Join the 15.<br />
           <span className="text-green">Help Us Calibrate.</span>
         </h1>
+        <p className="text-muted/80 text-sm italic max-w-2xl mx-auto mb-4">
+          Works in your browser — no download needed. Uses your location to find nearby waters.
+        </p>
         <p className="text-muted text-lg max-w-2xl mx-auto">
           This is not a public launch. This is a laboratory. We need 15 serious anglers on Tennessee water bodies to validate the BiteScore™ engine.
         </p>

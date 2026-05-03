@@ -30,6 +30,7 @@ export default function Home() {
           Stop Guessing.<br />
           <span className="text-green">Start Catching.</span>
         </h1>
+        <p className="text-muted/80 text-sm italic mb-4">Pronounced: RIF-ult</p>
         <p className="text-muted text-lg md:text-xl max-w-2xl mb-4 leading-relaxed">
           The first fishing intelligence platform built on thermal physics, not calendar guesses.
         </p>
