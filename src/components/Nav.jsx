@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
+// F4 / PR-S4: `/` now serves the Beta page (was Home). Removed both Home and
+// Beta from nav — Home is reachable at /home if needed; Beta IS the root so
+// having a separate "Beta" link would be redundant with the logo link to `/`.
+// /signup is intentionally NOT in nav — it's reachable only via Peggy's
+// invitation links (?promo=...) and carries a noindex meta on that page.
 const NAV_LINKS = [
-  { to: '/', label: 'Home' },
   { to: '/science', label: 'Science' },
   { to: '/features', label: 'Features' },
   { to: '/about', label: 'About' },
-  { to: '/beta', label: 'Beta' },
 ];
 
 export default function Nav() {
@@ -26,7 +29,7 @@ export default function Nav() {
               {l.label}
             </Link>
           ))}
-          <a href="https://riflt-mvp.vercel.app" target="_blank" rel="noopener noreferrer"
+          <a href="https://app.riflt.com" target="_blank" rel="noopener noreferrer"
             className="bg-accent hover:bg-accent-light text-white text-sm font-semibold px-5 py-2 rounded-lg no-underline transition-colors">
             Open App
           </a>
@@ -47,7 +50,7 @@ export default function Nav() {
               {l.label}
             </Link>
           ))}
-          <a href="https://riflt-mvp.vercel.app" target="_blank" rel="noopener noreferrer"
+          <a href="https://app.riflt.com" target="_blank" rel="noopener noreferrer"
             className="block mt-4 text-center bg-accent text-white font-semibold py-3 rounded-lg no-underline">
             Open App
           </a>
