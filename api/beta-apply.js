@@ -18,20 +18,12 @@
  * REQUIRES env vars (set in riflt-website Vercel project):
  *   - SUPABASE_URL                  (read by _supabase-admin.js)
  *   - SUPABASE_SERVICE_ROLE_KEY     (read by _supabase-admin.js)
- *   - GMAIL_APP_PASSWORD            (NEW — Google Workspace app password
- *                                    for support@riflt.com SMTP send. SAME
- *                                    value Captain pasted into Supabase
- *                                    dashboard for magic-link SMTP, but
- *                                    must be set here separately as a
- *                                    Vercel env var since nodemailer
- *                                    needs runtime access)
- *
- * Captain prereq: add GMAIL_APP_PASSWORD to riflt-website Vercel project
- * env (Production + Preview). Same value as the Supabase Auth SMTP password.
+ *   - GMAIL_APP_PASSWORD            (Google Workspace app password for
+ *                                    support@riflt.com SMTP send)
  */
 
 import nodemailer from 'nodemailer';
-import { supabaseAdmin, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY } from './_supabase-admin.js';
+import { supabaseAdmin } from './_supabase-admin.js';
 
 const SUPPORT_EMAIL = 'support@riflt.com';
 const GMAIL_APP_PASSWORD = process.env.GMAIL_APP_PASSWORD || '';
@@ -60,115 +52,28 @@ export default async function handler(req, res) {
     : null;
 
   try {
-    // ── STEP 1: Persist application row (source of truth) ────────────────────
-    // DIAGNOSTIC INSTRUMENTATION (Captain debug, June 4 2026):
-    //   1. Log the EXACT URL the route is about to hit (redacted; no key).
-    //   2. Wrap supabase-js call; if it errors, log the FULL error object
-    //      (code/details/hint/message, not just .message).
-    //   3. Fall through to a raw fetch() against /rest/v1/beta_applications
-    //      using the same env vars, so we can see whether the supabase-js
-    //      wrapper or PostgREST itself is the source of "Invalid path".
-    //   4. Return the raw REST status + body in the response payload so
-    //      Captain can read it directly without scraping Vercel logs.
-    //   Remove this instrumentation after the root cause is fixed.
-
-    const insertPayload = {
-      first_name: firstName.trim(),
-      last_name: lastName.trim(),
-      email: email.trim().toLowerCase(),
-      home_water: homeWater.trim(),
-      how_heard: sanitizedHowHeard,
-    };
-
-    console.log('[beta-apply] SUPABASE_URL present:', !!SUPABASE_URL, 'length:', SUPABASE_URL.length);
-    console.log('[beta-apply] SERVICE_ROLE_KEY present:', !!SUPABASE_SERVICE_ROLE_KEY, 'length:', SUPABASE_SERVICE_ROLE_KEY.length);
-    console.log('[beta-apply] target URL: ' + SUPABASE_URL + '/rest/v1/beta_applications');
-    console.log('[beta-apply] payload keys: ' + Object.keys(insertPayload).join(','));
-
-    // ── Attempt A: supabase-js client (the original failing path) ───────────
-    const supaResult = await supabaseAdmin
+    // ── STEP 1: Persist application row (source of truth) ───────────────────
+    // Uses the same supabase-js .from().insert().select().single() builder
+    // pattern as check-promo and signup-start — supabase-js owns the path
+    // construction so /rest/v1 is appended exactly once.
+    const { data: row, error: insertErr } = await supabaseAdmin
       .from('beta_applications')
-      .insert(insertPayload)
+      .insert({
+        first_name: firstName.trim(),
+        last_name: lastName.trim(),
+        email: email.trim().toLowerCase(),
+        home_water: homeWater.trim(),
+        how_heard: sanitizedHowHeard,
+      })
       .select('id,created_at')
       .single();
 
-    let row = supaResult.data;
-    const supaErr = supaResult.error;
-
-    if (supaErr) {
-      console.error('[beta-apply] supabase-js error FULL OBJECT:', JSON.stringify({
-        message: supaErr.message,
-        code: supaErr.code,
-        details: supaErr.details,
-        hint: supaErr.hint,
-        status: supaErr.status,
-        statusCode: supaErr.statusCode,
-      }, null, 2));
-
-      // ── Attempt B: direct REST POST (skip supabase-js wrapper entirely) ──
-      // If this succeeds, the bug is in supabase-js. If it fails the same way,
-      // the bug is at PostgREST and we'll have the raw HTTP response to diagnose.
-      const rawUrl = SUPABASE_URL + '/rest/v1/beta_applications';
-      console.log('[beta-apply] FALLBACK raw POST to:', rawUrl);
-      try {
-        const rawRes = await fetch(rawUrl, {
-          method: 'POST',
-          headers: {
-            'apikey': SUPABASE_SERVICE_ROLE_KEY,
-            'Authorization': 'Bearer ' + SUPABASE_SERVICE_ROLE_KEY,
-            'Content-Type': 'application/json',
-            'Prefer': 'return=representation',
-          },
-          body: JSON.stringify(insertPayload),
-        });
-        const rawText = await rawRes.text();
-        console.log('[beta-apply] raw REST status:', rawRes.status);
-        console.log('[beta-apply] raw REST body:', rawText.slice(0, 500));
-
-        if (rawRes.ok) {
-          // The raw fetch worked! supabase-js is the bug. Salvage the response.
-          try {
-            const parsed = JSON.parse(rawText);
-            row = Array.isArray(parsed) ? parsed[0] : parsed;
-            console.log('[beta-apply] recovered via raw REST, row id:', row?.id);
-          } catch (parseErr) {
-            console.error('[beta-apply] raw REST returned 2xx but body did not parse:', parseErr.message);
-            return res.status(500).json({
-              error: 'Apply failed',
-              diagnostic: {
-                supabase_js_error: { message: supaErr.message, code: supaErr.code, details: supaErr.details, hint: supaErr.hint },
-                raw_rest_status: rawRes.status,
-                raw_rest_body: rawText.slice(0, 500),
-              },
-            });
-          }
-        } else {
-          // Both paths failed. Return ALL diagnostic info so Captain can read it.
-          return res.status(500).json({
-            error: 'Apply failed',
-            diagnostic: {
-              supabase_js_error: { message: supaErr.message, code: supaErr.code, details: supaErr.details, hint: supaErr.hint },
-              raw_rest_status: rawRes.status,
-              raw_rest_body: rawText.slice(0, 500),
-              url: rawUrl,
-            },
-          });
-        }
-      } catch (rawErr) {
-        console.error('[beta-apply] raw REST threw:', rawErr.message);
-        return res.status(500).json({
-          error: 'Apply failed',
-          diagnostic: {
-            supabase_js_error: { message: supaErr.message, code: supaErr.code, details: supaErr.details, hint: supaErr.hint },
-            raw_rest_threw: rawErr.message,
-          },
-        });
-      }
-    } else {
-      console.log('[beta-apply] supabase-js OK, row id:', row?.id);
+    if (insertErr) {
+      console.error('[beta-apply] insert failed:', insertErr.message);
+      return res.status(500).json({ error: 'Apply failed' });
     }
 
-    // ── STEP 2: Fire notification email (best-effort, non-blocking on row) ───
+    // ── STEP 2: Fire notification email (best-effort, non-blocking on row) ──
     if (GMAIL_APP_PASSWORD) {
       try {
         const transporter = nodemailer.createTransport({
