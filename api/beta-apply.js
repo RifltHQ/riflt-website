@@ -70,7 +70,7 @@ export default async function handler(req, res) {
         home_water: homeWater.trim(),
         how_heard: sanitizedHowHeard,
       })
-      .select('id, created_at')
+      .select('id,created_at')
       .single();
 
     if (insertErr) {
