@@ -9,9 +9,16 @@ import { HOME_WATERS } from '../data/home-waters';
 //   - Submit now POSTs to /api/beta-apply (persists to beta_applications +
 //     fires notification email to support@riflt.com). Was console.log only.
 //
-// All marketing copy ABOVE the form is unchanged from the existing Beta
-// page (founder-approved). Only the form structure + submission flow are
-// modified.
+// Vertical layout (Captain direction, post-eyeball):
+//   1. Hero — headline ("Become a Founding Angler"), italic browser caveat,
+//      intro paragraph ("This is not a public launch. This is a laboratory…").
+//      No headcount in the copy — volume is managed by interest, not a public
+//      target number.
+//   2. Apply form — call-to-action lands directly under the hero intro so the
+//      visitor is offered the doorway before reading the bullets.
+//   3. What You Get / What We Need — the bullets sit BELOW the form as
+//      supporting context for anyone who needs more before applying. (Was
+//      previously above the form.)
 
 export default function Beta() {
   const [firstName, setFirstName] = useState('');
@@ -62,68 +69,24 @@ export default function Beta() {
           <p className="text-green text-xs font-semibold tracking-widest uppercase">Limited Beta</p>
         </div>
         <h1 className="text-4xl md:text-6xl font-black mb-6">
-          Join the 15.<br />
+          Become a Founding Angler.<br />
           <span className="text-green">Help Us Calibrate.</span>
         </h1>
         <p className="text-muted/80 text-sm italic max-w-2xl mx-auto mb-4">
           Works in your browser — no download needed. Uses your location to find nearby waters.
         </p>
         <p className="text-muted text-lg max-w-2xl mx-auto">
-          This is not a public launch. This is a laboratory. We need 15 serious anglers on Tennessee water bodies to validate the BiteScore™ engine.
+          This is not a public launch. This is a laboratory. We need serious anglers on Tennessee water bodies to validate the BiteScore&trade; engine.
         </p>
       </section>
 
-      {/* Two columns */}
-      <section className="py-16 px-6">
-        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12">
-          {/* What you get */}
-          <div>
-            <h2 className="text-2xl font-bold mb-6">What You Get</h2>
-            <div className="space-y-4">
-              {[
-                { icon: '👑', label: 'Founding Member Pro+', desc: 'Free for life. No payment ever.' },
-                { icon: '📍', label: 'TWRA Attractor Layer', desc: 'First access to structured access data for every TN water body.' },
-                { icon: '🔒', label: 'Spot-Lock™ from Day One', desc: 'GPS privacy architecture active from your first session.' },
-                { icon: '📞', label: 'Direct Line to Founder', desc: 'Text, email, or voice. You talk to the person who built it.' },
-              ].map((p, i) => (
-                <div key={i} className="flex gap-4 items-start">
-                  <p className="text-2xl">{p.icon}</p>
-                  <div>
-                    <p className="font-semibold">{p.label}</p>
-                    <p className="text-muted text-sm">{p.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* What we need */}
-          <div>
-            <h2 className="text-2xl font-bold mb-6">What We Need</h2>
-            <div className="space-y-4">
-              {[
-                { icon: '🌊', label: 'Anglers on TN Water', desc: 'Percy Priest, Old Hickory, Center Hill, Harpeth, Caney Fork.' },
-                { icon: '✅', label: 'Honest Score Feedback', desc: 'Did the BiteScore™ match reality? Spot On, Close, or Off.' },
-                { icon: '📱', label: '3-Tap Catch Logging', desc: 'Species, score match, submit. Under 10 seconds per catch.' },
-              ].map((p, i) => (
-                <div key={i} className="flex gap-4 items-start">
-                  <p className="text-2xl">{p.icon}</p>
-                  <div>
-                    <p className="font-semibold">{p.label}</p>
-                    <p className="text-muted text-sm">{p.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Application form */}
+      {/* Application form — moved above What-You-Get/What-We-Need per Captain
+          direction so visitors land on the call-to-action immediately after
+          the hero intro, then read the bullet payoffs / expectations below. */}
       <section className="py-20 px-6 bg-navy">
         <div className="max-w-md mx-auto">
           <h2 className="text-2xl font-bold text-center mb-2">Apply for Beta Access</h2>
-          <p className="text-muted text-sm text-center mb-8">The BiteScore™ engine is live. Some features are still being built. Your job is to tell us if the score feels right on the water.</p>
+          <p className="text-muted text-sm text-center mb-8">The BiteScore&trade; engine is live. Some features are still being built. Your job is to tell us if the score feels right on the water.</p>
 
           {submitted ? (
             /* [REVIEW] — application-received copy; "48 hours" is Peggy's window */
@@ -197,6 +160,54 @@ export default function Beta() {
               </button>
             </form>
           )}
+        </div>
+      </section>
+
+      {/* Two columns — moved below Apply form per Captain direction so the
+          payoff bullets sit as supporting context AFTER the call-to-action,
+          not as a stack of features the visitor has to scroll past first. */}
+      <section className="py-16 px-6">
+        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12">
+          {/* What you get */}
+          <div>
+            <h2 className="text-2xl font-bold mb-6">What You Get</h2>
+            <div className="space-y-4">
+              {[
+                { icon: '👑', label: 'Founding Member Pro+', desc: 'Free for life. No payment ever.' },
+                { icon: '📍', label: 'TWRA Attractor Layer', desc: 'First access to structured access data for every TN water body.' },
+                { icon: '🔒', label: 'Spot-Lock™ from Day One', desc: 'GPS privacy architecture active from your first session.' },
+                { icon: '📞', label: 'Direct Line to Founder', desc: 'Text, email, or voice. You talk to the person who built it.' },
+              ].map((p, i) => (
+                <div key={i} className="flex gap-4 items-start">
+                  <p className="text-2xl">{p.icon}</p>
+                  <div>
+                    <p className="font-semibold">{p.label}</p>
+                    <p className="text-muted text-sm">{p.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* What we need */}
+          <div>
+            <h2 className="text-2xl font-bold mb-6">What We Need</h2>
+            <div className="space-y-4">
+              {[
+                { icon: '🌊', label: 'Anglers on TN Water', desc: 'Percy Priest, Old Hickory, Center Hill, Harpeth, Caney Fork.' },
+                { icon: '✅', label: 'Honest Score Feedback', desc: 'Did the BiteScore™ match reality? Spot On, Close, or Off.' },
+                { icon: '📱', label: '3-Tap Catch Logging', desc: 'Species, score match, submit. Under 10 seconds per catch.' },
+              ].map((p, i) => (
+                <div key={i} className="flex gap-4 items-start">
+                  <p className="text-2xl">{p.icon}</p>
+                  <div>
+                    <p className="font-semibold">{p.label}</p>
+                    <p className="text-muted text-sm">{p.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
     </div>
