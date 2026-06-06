@@ -1,18 +1,64 @@
 import { useState } from 'react';
+import { HOME_WATERS } from '../data/home-waters';
 
-const WATERS = ['Percy Priest', 'Old Hickory', 'Center Hill', 'Harpeth River', 'Caney Fork', 'Cumberland River', 'Stones River', 'Other'];
+// F4 / PR-S4: Beta apply form refactor.
+//   - Name split into firstName + lastName (was single "Name" field)
+//   - Email field added (required)
+//   - Home water list moved to shared src/data/home-waters.js so /signup +
+//     /beta share the same options (single source of truth)
+//   - Submit now POSTs to /api/beta-apply (persists to beta_applications +
+//     fires notification email to support@riflt.com). Was console.log only.
+//
+// Vertical layout (Captain direction, post-eyeball):
+//   1. Hero — headline ("Become a Founding Angler"), italic browser caveat,
+//      intro paragraph ("This is not a public launch. This is a laboratory…").
+//      No headcount in the copy — volume is managed by interest, not a public
+//      target number.
+//   2. Apply form — call-to-action lands directly under the hero intro so the
+//      visitor is offered the doorway before reading the bullets.
+//   3. What You Get / What We Need — the bullets sit BELOW the form as
+//      supporting context for anyone who needs more before applying. (Was
+//      previously above the form.)
 
 export default function Beta() {
-  const [name, setName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
   const [homeWater, setHomeWater] = useState('');
-  const [source, setSource] = useState('');
+  const [howHeard, setHowHeard] = useState('');
+  const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // In production: POST to Supabase or API
-    console.log('Beta application:', { name, homeWater, source });
-    setSubmitted(true);
+    if (submitting) return;
+    setSubmitting(true);
+    setErrorMessage('');
+    try {
+      const res = await fetch('/api/beta-apply', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName: firstName.trim(),
+          lastName: lastName.trim(),
+          email: email.trim().toLowerCase(),
+          homeWater,
+          howHeard: howHeard.trim() || null,
+        }),
+      });
+      const body = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setErrorMessage(body?.error || 'Something went wrong. Try again in a moment.');
+        setSubmitting(false);
+        return;
+      }
+      setSubmitted(true);
+    } catch (err) {
+      console.error('[beta apply] threw:', err);
+      setErrorMessage('Network error. Try again in a moment.');
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -23,18 +69,103 @@ export default function Beta() {
           <p className="text-green text-xs font-semibold tracking-widest uppercase">Limited Beta</p>
         </div>
         <h1 className="text-4xl md:text-6xl font-black mb-6">
-          Join the 15.<br />
+          Become a Founding Angler.<br />
           <span className="text-green">Help Us Calibrate.</span>
         </h1>
         <p className="text-muted/80 text-sm italic max-w-2xl mx-auto mb-4">
           Works in your browser — no download needed. Uses your location to find nearby waters.
         </p>
         <p className="text-muted text-lg max-w-2xl mx-auto">
-          This is not a public launch. This is a laboratory. We need 15 serious anglers on Tennessee water bodies to validate the BiteScore™ engine.
+          This is not a public launch. This is a laboratory. We need serious anglers on Tennessee water bodies to validate the BiteScore&trade; engine.
         </p>
       </section>
 
-      {/* Two columns */}
+      {/* Application form — moved above What-You-Get/What-We-Need per Captain
+          direction so visitors land on the call-to-action immediately after
+          the hero intro, then read the bullet payoffs / expectations below. */}
+      <section className="py-20 px-6 bg-navy">
+        <div className="max-w-md mx-auto">
+          <h2 className="text-2xl font-bold text-center mb-2">Apply for Beta Access</h2>
+          <p className="text-muted text-sm text-center mb-8">The BiteScore&trade; engine is live. Some features are still being built. Your job is to tell us if the score feels right on the water.</p>
+
+          {submitted ? (
+            /* [REVIEW] — application-received copy; "48 hours" is Peggy's window */
+            <div className="bg-green/10 border border-green/30 rounded-xl p-8 text-center">
+              <p className="text-4xl mb-4">🎣</p>
+              <p className="text-green text-xl font-bold mb-2">Application received.</p>
+              <p className="text-muted text-sm">We&apos;ll be in touch within 48 hours.</p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Name — split per PR-S4 brief: first + last */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm text-muted mb-1">First Name</label>
+                  <input
+                    type="text" required value={firstName} onChange={e => setFirstName(e.target.value)}
+                    disabled={submitting} autoComplete="given-name"
+                    className="w-full bg-navy-dark border border-border rounded-lg px-4 py-3 text-white focus:border-accent focus:outline-none disabled:opacity-60"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm text-muted mb-1">Last Name</label>
+                  <input
+                    type="text" required value={lastName} onChange={e => setLastName(e.target.value)}
+                    disabled={submitting} autoComplete="family-name"
+                    className="w-full bg-navy-dark border border-border rounded-lg px-4 py-3 text-white focus:border-accent focus:outline-none disabled:opacity-60"
+                  />
+                </div>
+              </div>
+
+              {/* Email — required (PR-S4 addition) */}
+              <div>
+                <label className="block text-sm text-muted mb-1">Email</label>
+                <input
+                  type="email" required value={email} onChange={e => setEmail(e.target.value)}
+                  disabled={submitting} autoComplete="email" autoCapitalize="none"
+                  className="w-full bg-navy-dark border border-border rounded-lg px-4 py-3 text-white focus:border-accent focus:outline-none disabled:opacity-60"
+                />
+              </div>
+
+              {/* Home water — shared HOME_WATERS list with /signup */}
+              <div>
+                <label className="block text-sm text-muted mb-1">Home Water</label>
+                <select
+                  required value={homeWater} onChange={e => setHomeWater(e.target.value)}
+                  disabled={submitting}
+                  className="w-full bg-navy-dark border border-border rounded-lg px-4 py-3 text-white focus:border-accent focus:outline-none appearance-none disabled:opacity-60">
+                  <option value="">Select your primary water body</option>
+                  {HOME_WATERS.map(w => <option key={w.key} value={w.key}>{w.label}</option>)}
+                </select>
+              </div>
+
+              {/* How heard — kept as required per PR-S4 brief */}
+              <div>
+                <label className="block text-sm text-muted mb-1">How did you hear about RIFLT&trade;?</label>
+                <input
+                  type="text" required value={howHeard} onChange={e => setHowHeard(e.target.value)}
+                  disabled={submitting}
+                  className="w-full bg-navy-dark border border-border rounded-lg px-4 py-3 text-white focus:border-accent focus:outline-none disabled:opacity-60"
+                />
+              </div>
+
+              {errorMessage ? (
+                <p className="text-red-400 text-sm">{errorMessage}</p>
+              ) : null}
+
+              <button
+                type="submit" disabled={submitting}
+                className="w-full bg-green hover:bg-green/90 disabled:opacity-60 text-white font-bold py-4 rounded-xl text-lg transition-colors cursor-pointer border-none">
+                {submitting ? 'Submitting…' : 'Apply for Beta Access'}
+              </button>
+            </form>
+          )}
+        </div>
+      </section>
+
+      {/* Two columns — moved below Apply form per Captain direction so the
+          payoff bullets sit as supporting context AFTER the call-to-action,
+          not as a stack of features the visitor has to scroll past first. */}
       <section className="py-16 px-6">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12">
           {/* What you get */}
@@ -77,51 +208,6 @@ export default function Beta() {
               ))}
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Application form */}
-      <section className="py-20 px-6 bg-navy">
-        <div className="max-w-md mx-auto">
-          <h2 className="text-2xl font-bold text-center mb-2">Apply for Beta Access</h2>
-          <p className="text-muted text-sm text-center mb-8">The BiteScore™ engine is live. Some features are still being built. Your job is to tell us if the score feels right on the water.</p>
-
-          {submitted ? (
-            <div className="bg-green/10 border border-green/30 rounded-xl p-8 text-center">
-              <p className="text-4xl mb-4">🎣</p>
-              <p className="text-green text-xl font-bold mb-2">Application received.</p>
-              <p className="text-muted text-sm">We'll be in touch within 48 hours.</p>
-              <a href="https://riflt-mvp.vercel.app" target="_blank" rel="noopener noreferrer"
-                className="inline-block mt-6 bg-green text-white font-semibold px-6 py-3 rounded-lg no-underline">
-                Try the App Now &rarr;
-              </a>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label className="block text-sm text-muted mb-1">Name</label>
-                <input type="text" required value={name} onChange={e => setName(e.target.value)}
-                  className="w-full bg-navy-dark border border-border rounded-lg px-4 py-3 text-white focus:border-accent focus:outline-none" />
-              </div>
-              <div>
-                <label className="block text-sm text-muted mb-1">Home Water</label>
-                <select required value={homeWater} onChange={e => setHomeWater(e.target.value)}
-                  className="w-full bg-navy-dark border border-border rounded-lg px-4 py-3 text-white focus:border-accent focus:outline-none appearance-none">
-                  <option value="">Select your primary water body</option>
-                  {WATERS.map(w => <option key={w} value={w}>{w}</option>)}
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm text-muted mb-1">How did you hear about RIFLT&trade;?</label>
-                <input type="text" value={source} onChange={e => setSource(e.target.value)}
-                  className="w-full bg-navy-dark border border-border rounded-lg px-4 py-3 text-white focus:border-accent focus:outline-none" />
-              </div>
-              <button type="submit"
-                className="w-full bg-green hover:bg-green/90 text-white font-bold py-4 rounded-xl text-lg transition-colors cursor-pointer border-none">
-                Apply for Beta Access
-              </button>
-            </form>
-          )}
         </div>
       </section>
     </div>
