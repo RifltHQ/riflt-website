@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-// F4 / PR-S4: `/` now serves the Beta page (was Home). Removed both Home and
-// Beta from nav — Home is reachable at /home if needed; Beta IS the root so
-// having a separate "Beta" link would be redundant with the logo link to `/`.
+// `/` serves the Beta apply-for-invite page (PR-S4 beta-launch landing); the
+// logo links to `/` so a separate "Beta" nav link would be redundant. The Home
+// marketing page lives at /home and is linked here so it's reachable again.
 // /signup is intentionally NOT in nav — it's reachable only via Peggy's
 // invitation links (?promo=...) and carries a noindex meta on that page.
 const NAV_LINKS = [
+  { to: '/home', label: 'Home' },
   { to: '/science', label: 'Science' },
   { to: '/features', label: 'Features' },
   { to: '/about', label: 'About' },
